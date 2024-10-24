@@ -31,28 +31,23 @@ class Preprocessing():
         Return:
         - Samples: Dictionary {index: {"dir": "/...."}}
         """
-        def padding(index):
-            # Padding
-            if 0 <= index < 10:
-                index = "00" +str(index)
-            elif 10 <= index < 100:
-                index = "0" +str(index)
-            return index
-        for i in range(0, self.num_of_samples):
+        def padding(index) -> str:
+            return str(index).zfill(3)
+        for i in range(self.num_of_samples):
             if mode == "random": # Mode load random samples
                 random_index = np.random.randint(0, 500)
                 index = random_index
                 self.samples[index] = {}  # For futher append values
                 random_index = padding(random_index)
-                self.samples[index]["dir"] = self.root + "\\"  + type_list[self.type_index][0] + "\\" + type_list[self.type_index][1] + "." + str(random_index) + ".wav"
-                # self.samples_list[index]["dir"] = (os.path.join(self.root, type_list[self.type_index][0], type_list[self.type_index][1] + "." + str(random_index) + ".wav"))
+                self.samples[index]["dir"] = self.root + "\\"  + type_list[self.type_index][0] + "\\" + type_list[self.type_index][1] + "." + random_index + ".wav"
+                # self.samples_list[index]["dir"] = (os.path.join(self.root, type_list[self.type_index][0], type_list[self.type_index][1] + "." + random_index + ".wav"))
             
             if mode == "all":  # Mode load all samples
                 index = i
                 self.samples[index] = {}
                 i = padding(i)
-                self.samples[index]["dir"] = self.root + "\\"  + type_list[self.type_index][0] + "\\" + type_list[self.type_index][1] + "." + str(i) + ".wav"
-                # self.samples[index]["dir"] = os.path.join(self.root, type_list[self.type_index][0], type_list[self.type_index][1] + "." + str(i) + ".wav")
+                self.samples[index]["dir"] = self.root + "\\"  + type_list[self.type_index][0] + "\\" + type_list[self.type_index][1] + "." + i + ".wav"
+                # self.samples[index]["dir"] = os.path.join(self.root, type_list[self.type_index][0], type_list[self.type_index][1] + "." + i + ".wav")
 
         return self.samples
 
